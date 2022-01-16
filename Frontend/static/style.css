@@ -1,0 +1,37 @@
+.apoteka{
+    border-radius: 24px;
+    margin: 24px;
+    padding: 24px;
+    height: 300px;
+    width: 300px;
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.14),
+    0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    padding: 40px;
+}
+
+.apoteka-container { 
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.opis {
+    font-size: 24px;
+    font-weight: 200;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    white-space: nowrap; 
+    overflow: hidden;
+    width: 250px;
+    text-overflow: ellipsis; 
+    text-align: center;
+    
+}
