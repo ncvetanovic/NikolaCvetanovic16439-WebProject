@@ -70,6 +70,15 @@ namespace Backend.Controllers
 
 
         
+        [Route("PreuzmiSveApoteke")]
+        [HttpGet]
+        public async Task<List<Apoteka>> PreuzmiSveApoteke(){
+            await Context.SaveChangesAsync();
+            return  Context.Apoteke.AsEnumerable().Select(apoteka => apoteka).ToList();
+        }
+
+
+        
 
 
    
