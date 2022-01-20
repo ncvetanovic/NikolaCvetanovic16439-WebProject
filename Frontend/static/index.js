@@ -41,7 +41,6 @@ document.body.appendChild(loginContainer);
 
 fetch("https://localhost:5001/Apoteka/PreuzmiSveApoteke").then(p => {
         p.json().then(data => {
-          
           const container = document.createElement("div");
           container.className = "apoteka-container";
           main.appendChild(container);
@@ -218,7 +217,7 @@ const login =  ( username , password) => {
 const preuzmiKlijenta = (idKlijenta) => {
 fetch("https://localhost:5001/Apoteka/PreuzmiKlijenta/" + idKlijenta).then(p => p.json().then(data => {
 
-  klijent = data;
+
   const container = document.createElement("div");
   container.className = "recept-container";
 
@@ -286,6 +285,7 @@ fetch("https://localhost:5001/Apoteka/PreuzmiKlijenta/" + idKlijenta).then(p => 
         cenaLbl.className = "opis";
         cenaLbl.innerHTML = "Cena";
         cenaLbl.style.color = "#00802b";
+        cenaLbl.style.marginRight = "20px"
 
         header.appendChild(cenaLbl)
 
