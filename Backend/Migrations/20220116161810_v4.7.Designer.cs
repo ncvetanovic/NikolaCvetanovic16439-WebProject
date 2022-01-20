@@ -4,14 +4,16 @@ using Backend.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Backend.Migrations
 {
     [DbContext(typeof(ApotekaContext))]
-    partial class ApotekaContextModelSnapshot : ModelSnapshot
+    [Migration("20220116161810_v4.7")]
+    partial class v47
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,16 +57,19 @@ namespace Backend.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)")
                         .HasColumnName("Email");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasMaxLength(32)
                         .HasColumnType("nvarchar(32)")
                         .HasColumnName("Password");
 
                     b.Property<string>("Username")
+                        .IsRequired()
                         .HasMaxLength(32)
                         .HasColumnType("nvarchar(32)")
                         .HasColumnName("Username");
@@ -94,34 +99,16 @@ namespace Backend.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("Opis");
 
+                    b.Property<int?>("ReceptID")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
                     b.HasIndex("ApotekaID");
 
-                    b.ToTable("Lek");
-                });
-
-            modelBuilder.Entity("Backend.Models.LekUReceptu", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("LekID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ReceptID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("LekID");
-
                     b.HasIndex("ReceptID");
 
-                    b.ToTable("LekUReceptu");
+                    b.ToTable("Lek");
                 });
 
             modelBuilder.Entity("Backend.Models.Recept", b =>
@@ -154,26 +141,15 @@ namespace Backend.Migrations
                 {
                     b.HasOne("Backend.Models.Apoteka", "Apoteka")
                         .WithMany("Lekovi")
-                        .HasForeignKey("ApotekaID");
-
-                    b.Navigation("Apoteka");
-                });
-
-            modelBuilder.Entity("Backend.Models.LekUReceptu", b =>
-                {
-                    b.HasOne("Backend.Models.Lek", "Lek")
-                        .WithMany("Recepti")
-                        .HasForeignKey("LekID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ApotekaID")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Backend.Models.Recept", "Recept")
                         .WithMany("Lekovi")
                         .HasForeignKey("ReceptID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.Navigation("Lek");
+                    b.Navigation("Apoteka");
 
                     b.Navigation("Recept");
                 });
@@ -182,7 +158,8 @@ namespace Backend.Migrations
                 {
                     b.HasOne("Backend.Models.Klijent", "Klijent")
                         .WithMany("Recepti")
-                        .HasForeignKey("KlijentID");
+                        .HasForeignKey("KlijentID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Klijent");
                 });
@@ -193,11 +170,6 @@ namespace Backend.Migrations
                 });
 
             modelBuilder.Entity("Backend.Models.Klijent", b =>
-                {
-                    b.Navigation("Recepti");
-                });
-
-            modelBuilder.Entity("Backend.Models.Lek", b =>
                 {
                     b.Navigation("Recepti");
                 });

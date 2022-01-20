@@ -11,6 +11,8 @@ namespace Backend.Models
     {
         [Key]
         [Column("ID")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public int ID { get; set; }
 
         [Column("DatumOd")]
@@ -19,8 +21,8 @@ namespace Backend.Models
         [Column("DatumDo")]
         public DateTime DatumDo { get; set; }
        
+        public virtual  List<LekUReceptu> Lekovi { get; set; }
         [JsonIgnore]
-        public Apoteka Apoteka { get; set; }
-        public virtual  List<Lek> Lekovi { get; set; }
+        public virtual Klijent Klijent { get; set; }
     }
 }

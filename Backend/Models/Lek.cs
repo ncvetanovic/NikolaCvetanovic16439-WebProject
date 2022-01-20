@@ -11,6 +11,7 @@ namespace Backend.Models
     {
         [Key]
         [Column("ID")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         [Column("Opis")]
@@ -21,7 +22,7 @@ namespace Backend.Models
         public double Cena { get; set; }
 
         [JsonIgnore]
-        public Recept Recept { get; set; }
+        public List<LekUReceptu> Recepti { get; set; }
 
         [JsonIgnore]
         public Apoteka Apoteka { get; set; }

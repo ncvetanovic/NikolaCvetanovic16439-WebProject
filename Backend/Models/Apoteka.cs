@@ -9,6 +9,8 @@ namespace Backend.Models
     {
         [Key]
         [Column("ID")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public int ID { get; set; }
     
         [Column("Naziv")]
@@ -24,7 +26,6 @@ namespace Backend.Models
 
         public virtual List<Lek> Lekovi { get; set; }
 
-        public virtual List<Recept> Recepti { get; set; }
         
     }
 }

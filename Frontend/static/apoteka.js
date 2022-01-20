@@ -1,59 +1,34 @@
 export class Apoteka {
-    constructor(id,naziv,adresa,opis) {
+    constructor( id , naziv , adresa , opis, lekovi ) {
         this.miniKontejner = null;
-        this.id=id;
-        this.naziv=naziv;
-        this.adresa=adresa;
-        this.opis=opis;
+        this.id = id;
+        this.naziv = naziv;
+        this.adresa = adresa;
+        this.opis = opis;
+        this.lekovi = lekovi;
     }
     
     crtajApoteku(host) {
+
         this.miniKontejner = document.createElement("div");
-        this.miniKontejner.className = "apoteka";
+        this.miniKontejner.classList.add("apoteka");
+        this.miniKontejner.classList.add(this.id);
 
         let nazivLabela = document.createElement("h1");
-        nazivLabela.innerHTML = this.naziv;
+        nazivLabela.innerHTML = this.naziv.toUpperCase();
+        nazivLabela.style.fontSize = "30px";
         this.miniKontejner.appendChild(nazivLabela);
+
+        let lblLokacija = document.createElement("label");
+        lblLokacija.innerHTML = "Lokacija"
+        lblLokacija.style.fontWeight = "600";
+        this.miniKontejner.appendChild(lblLokacija)
 
         let opisSpan = document.createElement("span");
         opisSpan.className = "opis";
         opisSpan.innerHTML = this.opis;
+        opisSpan.style.fontWeight = "500";
         this.miniKontejner.appendChild(opisSpan);
-
-        let kreirajButton = document.createElement("button");
-        kreirajButton.innerHTML  = "Kreiraj novu apoteku";
-        this.miniKontejner.appendChild(kreirajButton);
-
-        kreirajButton.onclick = () => {
-
-            fetch("https://localhost:5001/Apoteka/KreirajApoteku", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                 },
-                body: JSON.stringify({
-                naziv: "betmene",
-                opis: "happy birthday",
-                adresa: "Lalinac",
-                lekovi: null,
-                recepti: null,
-            })
-                }).then(p => {
-                    // if (p.ok) {
-                    // console.log("alal ti")
-                    // }
-                    // else if (p.status == 400) {
-                    // console.log("greska")
-                    // }
-                    // else {
-                    //     alert("Greška prilikom kreiranja.");
-                    // }
-                    p.json().then(data => console.log(data))
-                }).catch(p => {
-                    alert("Greška prilikom kreiranja.");
-                })
-
-        };
 
         host.appendChild(this.miniKontejner);
 
